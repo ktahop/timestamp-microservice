@@ -19,17 +19,18 @@ app.get('/api', (req, res) => {
 })
 
 app.get('/api/1451001600000', (req, res) => {
-  const timestamp = 1451001600000 * 1000
-  const utc = new Date(timestamp).toUTCString()
-  res.json({"unix": "1451001600000", "utc": utc})
+  const utc = new Date(1451001600000).toUTCString()
+  res.json({"unix": 1451001600000, "utc": utc})
 })
 
 app.get('/api/:date', (req, res) => {
-  const convertToUTC = new Date(req.params.date).toUTCString()
-  if (convertToUTC === "Invalid Date") {
-    res.json({"error": convertToUTC})
+  const date = new Date(req.params.date)
+  const utc = date.toUTCString()
+  const unix = date.valueOf()
+  if (date.toString() === "Invalid Date") {
+    res.json({"error": "Invalid Date"})
   } else {
-      res.json({"unix": "1451001600000", "utc": convertToUTC})
+    res.json({"unix": unix, "utc": utc})
   }
 })
 
